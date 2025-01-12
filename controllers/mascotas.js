@@ -8,7 +8,7 @@ class mascotaController {
   //CREAR UNA MASCOTA
   async create(req, res) {
     try {
-      const data = mascotasModelo.create(req.body);
+      const data = await mascotasModelo.create(req.body);
       res.status(201).json(data);
     } catch (error) {
       res.status(500).send('error');
@@ -17,23 +17,30 @@ class mascotaController {
 
   async update(req, res) {
     try {
-      res.status(201).json({status: 'update ok'});
+      const {id} = req.params;
+      const data = await mascotasModelo.update(id, req.body);
+      res.status(200).json(data);
     } catch (error) {
+      console.log(error);
       res.status(500).send('error');
     }
   }
 
   async delete(req, res) {
     try {
-      res.status(201).json({status: 'delete ok'});
+      const {id} = req.params;
+      const data = await mascotasModelo.delete(id);
+      res.status(206).json(data);
     } catch (error) {
+      console.log(error);
       res.status(500).send('error');
     }
   }
 
   async getAll(req, res) {
     try {
-      res.status(201).json({status: 'getAll ok'});
+      const data = await mascotasModelo.getAll();
+      res.status(201).json(data);
     } catch (error) {
       res.status(500).send('error');
     }
@@ -41,7 +48,8 @@ class mascotaController {
 
   async getOne(req, res) {
     try {
-      res.status(201).json({status: 'getOne ok'});
+      const data = await mascotasModelo.getOne(req.params.id);
+      res.status(201).json(data);
     } catch (error) {
       res.status(500).send('error');
     }
