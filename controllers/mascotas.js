@@ -1,3 +1,5 @@
+import mascotasModelo from "../models/mascotas.js";
+
 class mascotaController {
   constructor() {
     // console.log("Mascotas");
@@ -6,7 +8,8 @@ class mascotaController {
   //CREAR UNA MASCOTA
   async create(req, res) {
     try {
-      res.status(201).json({status: 'create ok'});
+      const data = mascotasModelo.create(req.body);
+      res.status(201).json(data);
     } catch (error) {
       res.status(500).send('error');
     }
